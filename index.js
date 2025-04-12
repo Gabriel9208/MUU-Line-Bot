@@ -6,11 +6,11 @@ const { MessagingApiClient } = messagingApi;
 import express from 'express';
 
 const clientConfig = {
-  channelAccessToken: "ZOdK1cacumLC3IGdwWkDTFpNtKX1o6FY23/eDGWko69LLIxz6VaEtjoVAJQTa3hKk1yZEGdapeywkQpq4w6XN778TysAo2ijCl04GNK2yqesRG/16VOI9ywq96RhihITqx/PVPwUWI0BqEo66VsoMAdB04t89/1O/w1cDnyilFU=",
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
 };
 
 const middlewareConfig = {
-  channelSecret: "22269ce8ea73cc6a345b9f163b66711f",
+  channelSecret: process.env.LINE_CHANNEL_SECRET,
 };
 
 const client = new MessagingApiClient(clientConfig);
