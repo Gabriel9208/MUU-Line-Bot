@@ -1,0 +1,18 @@
+{
+  "name": "emo-monster",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "debug": "node --nolazy  ."
+  },
+  "author": "Gabrieee",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@line/bot-sdk": "^9.8.0",
+    "express": "^5.1.0"
+  },
+  "type": "module"
+}
