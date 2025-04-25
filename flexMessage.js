@@ -41,7 +41,7 @@ const question = [
     },
 ]
 
-const RESULT_COUNT = 15;
+const RESULT_COUNT = 16;
 const resultImage = [ // todo: change to the actual url
     "https://example.com/original.jpg",  // 喜
     "https://example.com/original.jpg",  // 怒
@@ -58,6 +58,7 @@ const resultImage = [ // todo: change to the actual url
     "https://example.com/original.jpg",  // 哀 + 焦
     "https://example.com/original.jpg",  // 哀 + 空
     "https://example.com/original.jpg",  // 焦 + 空
+    "https://example.com/original.jpg",  // 陰晴不定
 ]
 
 let userTestResult = {}; // user id -> a list of results | (string) -> (list)
