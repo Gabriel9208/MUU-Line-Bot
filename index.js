@@ -59,8 +59,7 @@ app.post('/webhook', (req, res, next) => {
     });
 });
 
-// Add health check endpoint for testing
-app.get('/health', (req, res) => {
+app.head('/health', (req, res) => {
   logger.log('[Health] Health check requested');
   res.status(200).send('OK');
 });

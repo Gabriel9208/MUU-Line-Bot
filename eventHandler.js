@@ -177,9 +177,9 @@ export function handleEvent(event) {
     }
 
     // Handle message events
-    if (event.message && event.message.type) {
+    if (event.type) {
         logger.log(`[Message] Received message type: ${event.message.type}`);
-        if (ignoreType.includes(event.message.type)) {
+        if (ignoreType.includes(event.type)) {
             try {
                 logger.log(`[Quiz] Starting quiz for user ${event.source.userId} from message`);
                 // return sendMuu(event.replyToken, event.source.userId);
@@ -194,7 +194,7 @@ export function handleEvent(event) {
         }
 
         // follow bot
-        if (event.message.type === "follow") {
+        if (event.type === "follow") {
             try {
                 logger.log(`[User] New follower: ${event.source.userId}`);
                 initUserTestResult(event.source.userId);
@@ -206,7 +206,7 @@ export function handleEvent(event) {
                 return Promise.resolve(null);
             }
         }
-        else if (event.message.type === "unfollow") {
+        else if (event.type === "unfollow") {
             logger.log(`[User] User unfollowed: ${event.source.userId}`);
             deleteUserTestResult(event.source.userId);
             deleteUserMuu(event.source.userId);
