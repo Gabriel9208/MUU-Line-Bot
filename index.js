@@ -5,11 +5,11 @@ import { handleEvent } from './eventHandler.js';
 
 
 const clientConfig = {
-  channelAccessToken: "VwuwuCObwHNs/V0LHqWQg3NOy81euL9XG64Qu3eYec9SM8xvsdSblAgNZk9z9yO0MzaSpBJxI4zFuzNNISdgXzMvH+VXN+5uMuKjUskRbeSyjMdGRmN4tgZXIbMHwKo4vE37hUpHufnw8ssNQnxo+AdB04t89/1O/w1cDnyilFU=",
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
 };
 
 const middlewareConfig = {
-  channelSecret: "6ff43ae7d6794d45c4c592779faacffa",
+  channelSecret: process.env.LINE_CHANNEL_SECRET,
 };
 
 
