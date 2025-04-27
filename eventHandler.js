@@ -1,9 +1,11 @@
 import { verifySignature } from './lineSecurity.js';
-import { sendFlexMessage, 
-    initUserTestResult, 
-    deleteUserTestResult, 
+import {
+    sendFlexMessage,
+    initUserTestResult,
+    deleteUserTestResult,
     updateUserTestResult,
-    getUserTestCount } from './flexMessage.js';
+    getUserTestCount
+} from './flexMessage.js';
 import { sendMuu, initUserMuu, deleteUserMuu } from './muuMessages.js';
 // import { sendResultToTouchDesigner } from './oscSender.js';
 
@@ -90,7 +92,7 @@ export function handleEvent(event) {
         else if (event.postback.data.includes("q5")) {
             try {
                 logger.log(`[Quiz] User ${event.source.userId} answered Q5: ${event.postback.data.split(":")[1]}`);
-                if (!checkTestCount(event.source.userId , 4)) {
+                if (!checkTestCount(event.source.userId, 4)) {
                     logger.warn(`[Quiz] User ${event.source.userId} tried to answer Q5 out of order`);
                     return Promise.resolve(null);
                 }
@@ -124,7 +126,7 @@ export function handleEvent(event) {
         ) {
             logger.log(`[Quiz] Processing question: ${event.postback.data}`);
 
-            if(event.postback.data.includes("start")) {
+            if (event.postback.data.includes("start")) {
                 logger.log(`[Quiz] User ${event.source.userId} starting quiz`);
                 initUserTestResult(event.source.userId);
             }
@@ -176,44 +178,40 @@ export function handleEvent(event) {
         return Promise.resolve(null);
     }
 
-    // Handle message events
-    if (event.type) {
-        logger.log(`[Message] Received message type: ${event.message.type}`);
-        if (ignoreType.includes(event.type)) {
-            try {
-                logger.log(`[Quiz] Starting quiz for user ${event.source.userId} from message`);
-                // return sendMuu(event.replyToken, event.source.userId);
-                initUserTestResult(event.source.userId);
-                initUserMuu(event.source.userId);
-                return sendFlexMessage(event.replyToken, event.source.userId, true, false);
-            }
-            catch (error) {
-                logger.error(`[Error] Failed to start quiz from message: ${error.message}`);
-                return Promise.resolve(null);
-            }
+    if (ignoreType.includes(event.type)) {
+        try {
+            logger.log(`[Quiz] Starting quiz for user ${event.source.userId} from message`);
+            // return sendMuu(event.replyToken, event.source.userId);
+            initUserTestResult(event.source.userId);
+            initUserMuu(event.source.userId);
+            return sendFlexMessage(event.replyToken, event.source.userId, true, false);
         }
-
-        // follow bot
-        if (event.type === "follow") {
-            try {
-                logger.log(`[User] New follower: ${event.source.userId}`);
-                initUserTestResult(event.source.userId);
-                initUserMuu(event.source.userId);
-                return sendFlexMessage(event.replyToken, event.source.userId, true, false);
-            }
-            catch (error) {
-                logger.error(`[Error] Failed to handle follow event: ${error.message}`);
-                return Promise.resolve(null);
-            }
-        }
-        else if (event.type === "unfollow") {
-            logger.log(`[User] User unfollowed: ${event.source.userId}`);
-            deleteUserTestResult(event.source.userId);
-            deleteUserMuu(event.source.userId);
-
+        catch (error) {
+            logger.error(`[Error] Failed to start quiz from message: ${error.message}`);
             return Promise.resolve(null);
         }
     }
+
+    if (event.type == "follow") {
+        try {
+            logger.log(`[User] New follower: ${event.source.userId}`);
+            initUserTestResult(event.source.userId);
+            initUserMuu(event.source.userId);
+            return sendFlexMessage(event.replyToken, event.source.userId, true, false);
+        }
+        catch (error) {
+            logger.error(`[Error] Failed to handle follow event: ${error.message}`);
+            return Promise.resolve(null);
+        }
+    }
+    else if (event.type == "unfollow") {
+        logger.log(`[User] User unfollowed: ${event.source.userId}`);
+        deleteUserTestResult(event.source.userId);
+        deleteUserMuu(event.source.userId);
+
+        return Promise.resolve(null);
+    }
+
 
     logger.log(`[Event] Unhandled event type: ${event.type}`);
     return Promise.resolve(null);
