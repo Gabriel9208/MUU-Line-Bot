@@ -7,11 +7,11 @@ import { handleEvent } from './eventHandler.js';
 import { logger } from './eventHandler.js';
 
 const clientConfig = {
-  channelAccessToken: "IPjtig8P6Wxy+ty0Xx7GU/JsG9hOTrcmPKnbJmt7PnI0B+piaSakfjh/GoyNmJxfMzaSpBJxI4zFuzNNISdgXzMvH+VXN+5uMuKjUskRbeRJ09CZl8YNIwwfofi3fn8pGsI5VMwqmgmncJkHX0mqnwdB04t89/1O/w1cDnyilFU=",
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
 };
 
-const middlewareConfig = {
-  channelSecret: "48a7aa8a29223f94661a478f5b50ffeb",
+  const middlewareConfig = {
+    channelSecret: process.env.LINE_CHANNEL_SECRET,
 };
 
 

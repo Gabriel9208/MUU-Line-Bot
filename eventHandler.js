@@ -66,20 +66,7 @@ export function handleEvent(event) {
         return Promise.resolve(null);
     }
 
-    if (event.destination !== "U359cb25a849b4ea404831c6eb7801317") {
-        logger.warn(`[Security] Destination mismatch: ${event.destination} vs U359cb25a849b4ea404831c6eb7801317`);
-        if (blackList[event.source.userId] === undefined) {
-            blackList[event.source.userId] = 1;
-        }
-        else {
-            blackList[event.source.userId]++;
-        }
-        logger.warn(`[Blacklist] User ${event.source.userId} has ${blackList[event.source.userId]} strikes`);
-
-        return Promise.resolve(null);
-    }
-
-    // verification message
+    // verification messaged
     if (event.replyToken === '00000000000000000000000000000000' ||
         event.replyToken === 'ffffffffffffffffffffffffffffffff') {
         logger.log('[Verification] Received verification message');
