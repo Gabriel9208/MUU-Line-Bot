@@ -1,5 +1,3 @@
-'use strict';
-
 import { Client } from 'osc';
 import { RESULT_COUNT } from './flexMessage.js';
 

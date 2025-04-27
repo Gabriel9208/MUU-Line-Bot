@@ -32,7 +32,7 @@ function sendMuu(replyToken, userId) {
         return client.replyMessage({
             replyToken: replyToken,
             messages: [
-                JSON.stringify(muuMessageTemplate)
+                muuMessageTemplate
             ]
         });
     }
@@ -46,7 +46,9 @@ function initUserMuu(userId) {
 }
 
 function deleteUserMuu(userId) {
-    delete sentMuu[userId];
+    if (sentMuu[userId] != undefined) {
+        delete sentMuu[userId];
+    }
 }
 
 export { sendMuu, initUserMuu, deleteUserMuu };

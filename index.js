@@ -1,16 +1,15 @@
-'use strict';
-
-import { middleware, MessagingApiClient } from '@line/bot-sdk';
+import { middleware, messagingApi } from '@line/bot-sdk';
+const { MessagingApiClient } = messagingApi;
 import express from 'express';
 import { handleEvent } from './eventHandler.js';
 
 
 const clientConfig = {
-  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
+  channelAccessToken: "VwuwuCObwHNs/V0LHqWQg3NOy81euL9XG64Qu3eYec9SM8xvsdSblAgNZk9z9yO0MzaSpBJxI4zFuzNNISdgXzMvH+VXN+5uMuKjUskRbeSyjMdGRmN4tgZXIbMHwKo4vE37hUpHufnw8ssNQnxo+AdB04t89/1O/w1cDnyilFU=",
 };
 
 const middlewareConfig = {
-  channelSecret: process.env.LINE_CHANNEL_SECRET,
+  channelSecret: "6ff43ae7d6794d45c4c592779faacffa",
 };
 
 
