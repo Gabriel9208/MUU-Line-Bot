@@ -73,7 +73,7 @@ const resultImage = [ // todo: change to the actual url
 ]
 
 let userTestResult = {}; // user id -> a list of results | (string) -> (list)
-
+export let totalResult = [-1]; // 0:喜 1:怒 2:哀 3:焦 4:空
 
 function sendFlexMessage(replyToken, userId, isFirst, isLast) {
     if (userTestResult[userId] === undefined) {
@@ -347,6 +347,9 @@ function sendFlexMessage(replyToken, userId, isFirst, isLast) {
         if (quizResult >= RESULT_COUNT) {
             throw new Error("Error from flex message: " + "Quiz result out of range");
         }
+
+        totalResult.push(quizResult);
+
         message = [
             flexMessage[2],
             {

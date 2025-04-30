@@ -2,6 +2,7 @@ import { middleware, messagingApi } from '@line/bot-sdk';
 const { MessagingApiClient } = messagingApi;
 import express from 'express';
 import { handleEvent } from './eventHandler.js';
+import { totalResult } from './flexMessage.js';
 
 // Import custom logger from eventHandler
 import { logger } from './eventHandler.js';
@@ -62,6 +63,11 @@ app.post('/webhook', (req, res, next) => {
 app.head('/health', (req, res) => {
   logger.log('[Health] Health check requested');
   res.status(200).send('OK');
+});
+
+app.get('/fetch', (req, res) => {
+  res.json({ data: totalResult });
+  totalResult = [-1];  
 });
 
 const port = process.env.PORT || 3000;
