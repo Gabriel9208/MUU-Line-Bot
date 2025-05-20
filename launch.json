@@ -10,11 +10,7 @@
             ],
             "program": "${workspaceFolder}/index.js",
             "runtimeArgs": ["run-script", "debug"],
-            "port": 9229,
-            "env": {
-                "CHANNEL_ACCESS_TOKEN": "ZOdK1cacumLC3IGdwWkDTFpNtKX1o6FY23/eDGWko69LLIxz6VaEtjoVAJQTa3hKk1yZEGdapeywkQpq4w6XN778TysAo2ijCl04GNK2yqesRG/16VOI9ywq96RhihITqx/PVPwUWI0BqEo66VsoMAdB04t89/1O/w1cDnyilFU=",
-                "CHANNEL_SECRET": "22269ce8ea73cc6a345b9f163b66711f"
-            }
+            "port": 9229
         }
     ]
 }

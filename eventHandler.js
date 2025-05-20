@@ -6,8 +6,7 @@ import {
     updateUserTestResult,
     getUserTestCount
 } from './flexMessage.js';
-import { sendMuu, initUserMuu, deleteUserMuu } from './muuMessages.js';
-// import { sendResultToTouchDesigner } from './oscSender.js';
+import { sendMuu } from './muuMessages.js';
 
 // Custom logger to ensure visibility in Render
 export const logger = {
@@ -32,6 +31,7 @@ let blackList = {}; // user id -> the amount of request that user is blocked | (
 
 const BLACKLIST_THRESHOLD = 5;
 const ignoreType = [
+    'message',
     'text',
     'image',
     'video',
@@ -97,7 +97,7 @@ export function handleEvent(event) {
                     return Promise.resolve(null);
                 }
 
-                updateUserTestResult(event.source.userId, event.postback.data.split(":")[1]);
+                updateUserTestResult(event.source.userId, event.postback.data.split(":")[1] - 1);
                 logger.log(`[Quiz] User ${event.source.userId} completed quiz, sending results`);
                 const [quizResult, replyMessage] = sendFlexMessage(event.replyToken, event.source.userId, false, true);
                 logger.log(`[Quiz] Quiz result for ${event.source.userId}: ${quizResult}`);
@@ -155,7 +155,7 @@ export function handleEvent(event) {
                 event.postback.data.includes("q3") ||
                 event.postback.data.includes("q4")) {
                 logger.log(`[Quiz] User ${event.source.userId} answered ${event.postback.data.split(":")[0]}: ${event.postback.data.split(":")[1]}`);
-                updateUserTestResult(event.source.userId, event.postback.data.split(":")[1]);
+                updateUserTestResult(event.source.userId, event.postback.data.split(":")[1] - 1);
             }
 
             try {
@@ -180,14 +180,12 @@ export function handleEvent(event) {
 
     if (ignoreType.includes(event.type)) {
         try {
-            logger.log(`[Quiz] Starting quiz for user ${event.source.userId} from message`);
-            // return sendMuu(event.replyToken, event.source.userId);
-            initUserTestResult(event.source.userId);
-            initUserMuu(event.source.userId);
-            return sendFlexMessage(event.replyToken, event.source.userId, true, false);
+            logger.log(`[Quiz] Starting Muu for user ${event.source.userId} from message`);
+            return sendMuu(event.replyToken, event.source.userId);
+            
         }
         catch (error) {
-            logger.error(`[Error] Failed to start quiz from message: ${error.message}`);
+            logger.error(`[Error] Failed to start Muu from message: ${error.message}`);
             return Promise.resolve(null);
         }
     }
@@ -196,7 +194,6 @@ export function handleEvent(event) {
         try {
             logger.log(`[User] New follower: ${event.source.userId}`);
             initUserTestResult(event.source.userId);
-            initUserMuu(event.source.userId);
             return sendFlexMessage(event.replyToken, event.source.userId, true, false);
         }
         catch (error) {
@@ -207,7 +204,6 @@ export function handleEvent(event) {
     else if (event.type == "unfollow") {
         logger.log(`[User] User unfollowed: ${event.source.userId}`);
         deleteUserTestResult(event.source.userId);
-        deleteUserMuu(event.source.userId);
 
         return Promise.resolve(null);
     }
