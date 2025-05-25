@@ -2,7 +2,7 @@ import { middleware, messagingApi } from '@line/bot-sdk';
 const { MessagingApiClient } = messagingApi;
 import express from 'express';
 import { handleEvent } from './eventHandler.js';
-import { getTotalResult, resetTotalResult, generateRandomTotalResult } from './flexMessage.js';
+import { getTotalResult, resetTotalResult, generateRandomTotalResult, switching } from './flexMessage.js';
 
 // Import custom logger from eventHandler
 import { logger } from './eventHandler.js';
@@ -80,8 +80,7 @@ app.get('/fetch', (req, res) => {
     let result = getTotalResult();
     logger.log(`[Fetch] Sending data: ${JSON.stringify(result)}`);
     res.json({ data: result });
-    generateRandomTotalResult();
-    //resetTotalResult();
+    resetTotalResult();
     logger.log('[Fetch] Data sent and reset');
   }
 });

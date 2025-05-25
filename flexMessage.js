@@ -73,7 +73,7 @@ const resultImage = [ // todo: change to the actual url
 ]
 
 let userTestResult = {}; // user id -> a list of results | (string) -> (list)
-let totalResult = [1]; // 0:喜 1:怒 2:哀 3:焦 4:空
+let totalResult = [0]; // 0:喜 1:怒 2:哀 3:焦 4:空
 
 function sendFlexMessage(replyToken, userId, isFirst, isLast) {
     if (userTestResult[userId] === undefined) {
@@ -475,6 +475,22 @@ export function generateRandomTotalResult() {
     totalResult = [];
     for (let i = 0; i < randomAmount; i++) {
         totalResult.push(Math.floor(Math.random() * 5)); // Generate numbers 0-4
+    }
+}
+
+// for debugging
+export function switching() {
+    console.log("The last totalResult is " + totalResult);
+    
+    if (totalResult[0] == 0) {
+        console.log("Get into the first if");
+        totalResult = [1];
+        console.log("The totalResult switch to " + totalResult);
+    }
+    else {
+        console.log("Get into the else");
+        totalResult = [0];
+        console.log("The totalResult switch to " + totalResult);
     }
 }
 
